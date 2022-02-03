@@ -5,13 +5,6 @@ import PlantService from '../services/PlantService';
 const ListPlantComponent = () => {
 
     const [plants, setPlants] = useState([])
-
-    useEffect(() => {
-
-        getAllPlants();
-
-    },[])
-    
     const getAllPlants = () => {
         PlantService.getAllPlants().then((response) => {
             setPlants(response.data)
@@ -20,6 +13,13 @@ const ListPlantComponent = () => {
             console.log(error);
         })
     }
+    useEffect(() => {
+
+        getAllPlants();
+
+    },[])
+    
+  
 
     const deletePlant = (plantId) => {
        PlantService.deletePlant(plantId).then((response) =>{
@@ -36,6 +36,7 @@ const ListPlantComponent = () => {
       <Link to = "/add-plant" className = "btn btn-primary mb-2" > Add Plant </Link>
       <table className='table table-bordered table-striped'>
           <thead>
+          <tr>
               <th>Plant ID</th>
               <th>Scientific Name</th>
               <th>Common Name</th>
@@ -46,12 +47,12 @@ const ListPlantComponent = () => {
               <th>Planting Depth</th>
               <th>Planting Soil Temp</th>
               <th>Actions</th>
-          </thead>
+          </tr></thead>
           <tbody>
               {
                   plants.map(
                       plant => 
-                      <tr key = {plant.id}>
+                      <tr key={plant.id}>
                           <td> {plant.id} </td>
                           <td> {plant.sciName} </td>
                           <td> {plant.commonName} </td>

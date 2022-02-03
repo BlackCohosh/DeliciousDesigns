@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Link, useHistory, useParams } from 'react-router-dom';
+import {Link, useNavigate, useParams } from 'react-router-dom';
 import PlantService from '../services/PlantService'
 
 const AddPlantComponent = () => {
@@ -12,7 +12,7 @@ const AddPlantComponent = () => {
     const [plantGermTime, setPlantGermTime] = useState('')
     const [plantSeedDepth, setPlantSeedDepth] = useState('')
     const [plantSoilTemp, setPlantSoilTemp] = useState('')
-    const history = useHistory();
+    const history = useNavigate();
     const {id} = useParams();
 
     const saveOrUpdatePlant = (e) => {
