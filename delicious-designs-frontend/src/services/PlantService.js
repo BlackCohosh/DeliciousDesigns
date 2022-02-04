@@ -10,13 +10,14 @@ class PlantService{
     createPlant(plant){
         return axios.post(PLANT_BASE_REST_API_URL, plant)
     }
-    getPlantByTd(plantId){
+    getPlantById(plantId){
         return axios.get(PLANT_BASE_REST_API_URL + '/' + plantId);
     }
     updatePlant(plantId, plant){
         return axios.put(PLANT_BASE_REST_API_URL + '/' +plantId, plant);
     }
     deletePlant(plantId){
+        
         return axios.delete(PLANT_BASE_REST_API_URL + '/' + plantId);
     }
 }

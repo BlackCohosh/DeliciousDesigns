@@ -5,24 +5,27 @@ import PlantService from '../services/PlantService';
 const ListPlantComponent = () => {
 
     const [plants, setPlants] = useState([])
+
     const getAllPlants = () => {
         PlantService.getAllPlants().then((response) => {
+            console.log("DATA:",response.data)
             setPlants(response.data)
-            console.log(response.data);
+            // console.log(response.data);
         }).catch(error =>{
             console.log(error);
         })
     }
+
     useEffect(() => {
-
         getAllPlants();
-
     },[])
     
   
 
     const deletePlant = (plantId) => {
+        console.log(plantId);
        PlantService.deletePlant(plantId).then((response) =>{
+        //    console.log("djaisdog;jsdakgo;sja")
         getAllPlants();
 
        }).catch(error =>{
@@ -42,18 +45,19 @@ const ListPlantComponent = () => {
               <th>Common Name</th>
               <th>Plant Height</th>
               <th>Plant Spacing</th>
-              <th>Annual?</th>
+              <th>Annual</th>
               <th>Germination Time</th>
               <th>Planting Depth</th>
               <th>Planting Soil Temp</th>
               <th>Actions</th>
           </tr></thead>
           <tbody>
-              {
-                  plants.map(
-                      plant => 
-                      <tr key={plant.id}>
-                          <td> {plant.id} </td>
+              {plants.map(plant => {
+                        console.log("PLANTID", plant.plantId);
+
+                      return <tr key={plant.plantId}>
+                          {/* <th>{plant.plantId}</th> */}
+                          <td> {plant.plantId} </td>
                           <td> {plant.sciName} </td>
                           <td> {plant.commonName} </td>
                           <td> {plant.plantHeight} </td>
@@ -63,11 +67,13 @@ const ListPlantComponent = () => {
                           <td> {plant.plantSeedDepth} </td>
                           <td> {plant.plantSoilTemp} </td>
                           <td>
-                          <Link className="btn btn-info" to={`/edit-plant/${plant.id}`} >Update</Link>
-                                    <button className = "btn btn-danger" onClick = {() => deletePlant(plant.id)}
-                                    style = {{marginLeft:"10px"}}> Delete</button>
+                          <Link className="btn btn-info" to={`/edit-plant/${plant.plantId}`} >Update</Link>
+                                    <button className = "btn btn-danger" onClick = {() =>{
+
+                                        deletePlant(plant.plantId)}}
+                                    style = {{marginLeft:"1px"}}> Delete</button>
                           </td>
-                      </tr>
+                      </tr>}
                   )
 
               }

@@ -16,7 +16,7 @@ function App() {
               <Route exact path = "/" element={<ListPlantComponent/>}/>
               <Route path = "/plants" element={<ListPlantComponent/>}/>
               <Route path = "/add-plant" element={<AddPlantComponent/>}/>
-              <Route path = "/edit-plant/:id" element={<AddPlantComponent/>}/>
+              <Route path = "/edit-plant/:plantId" element={<AddPlantComponent/>}/>
             </Routes>
        </div>
         <FooterComponent />  

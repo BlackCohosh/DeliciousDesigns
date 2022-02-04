@@ -2,9 +2,9 @@ import React from 'react'
 
 const FooterComponent = () => {
     return (
-        <div>
+        <div className="text-center">
             <footer className = "footer">
-                 <span className="text-muted">All Rights Reserved 2021 Delicious Designs</span>
+                 <span className="text-muted" className="text-center">All Rights Reserved 2022 Delicious Designs</span>
             </footer>
         </div>
     )

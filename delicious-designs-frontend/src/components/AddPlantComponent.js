@@ -13,28 +13,31 @@ const AddPlantComponent = () => {
     const [plantSeedDepth, setPlantSeedDepth] = useState('')
     const [plantSoilTemp, setPlantSoilTemp] = useState('')
     const history = useNavigate();
-    const {id} = useParams();
+    const {plantId} = useParams();
+    console.log("Plant id: ", plantId)
 
     const saveOrUpdatePlant = (e) => {
         e.preventDefault();
 
-        const plant = {sciName, commonName, plantHeight}
+        const plant = {sciName, commonName, plantHeight, plantSpacing, annual, plantGermTime, plantSeedDepth, plantSoilTemp}
 
-        if(id){
-            PlantService.updatePlant(id, plant).then((response) => {
-                history.push('/plants')
+        if(plantId){
+            PlantService.updatePlant(plantId, plant).then((response) => {
+               history('/plants', { replace: true })
+               window.location.href = "http://localhost:3000"
             }).catch(error => {
                 console.log(error)
             })
 
         }else{
+            console.log("plant:", plant)
             PlantService.createPlant(plant).then((response) =>{
-
                 console.log(response.data)
-    
-                history.push('/plants');
+                history('/plants');
+                window.location.href = "http://localhost:3000"
     
             }).catch(error => {
+                console.log("saveOrUpdatePlant else statement(Update) broke, boy")
                 console.log(error)
             })
         }
@@ -43,7 +46,8 @@ const AddPlantComponent = () => {
 
     useEffect(() => {
 
-        PlantService.getPlantByTd(id).then((response) =>{
+        if (plantId){
+        PlantService.getPlantById(plantId).then((response) =>{
             setSciName(response.data.sciName)
             setCommonName(response.data.commonName)
             setPlantHeight(response.data.plantHeight)
@@ -54,12 +58,13 @@ const AddPlantComponent = () => {
             setPlantSoilTemp(response.data.plantSoilTemp)
         }).catch(error => {
             console.log(error)
-        })
+            console.log("suh dude")
+        })}
     }, [])
 
     const title = () => {
 
-        if(id){
+        if(plantId){
             return <h2 className = "text-center">Update Plant</h2>
         }else{
             return <h2 className = "text-center">Add Plant</h2>
@@ -115,6 +120,7 @@ const AddPlantComponent = () => {
                                     >
                                     </input>
                                 </div>
+
                                 <div className = "form-group mb-2">
                                     <label className = "form-label"> Plant Spacing :</label>
                                     <input
@@ -127,6 +133,7 @@ const AddPlantComponent = () => {
                                     >
                                     </input>
                                 </div>
+
                                 <div className = "form-group mb-2">
                                     <label className = "form-label"> Annual :</label>
                                     <input
@@ -139,6 +146,7 @@ const AddPlantComponent = () => {
                                     >
                                     </input>
                                 </div>
+
                                 <div className = "form-group mb-2">
                                     <label className = "form-label"> Plant Germination Time :</label>
                                     <input
@@ -151,6 +159,7 @@ const AddPlantComponent = () => {
                                     >
                                     </input>
                                 </div>
+
                                 <div className = "form-group mb-2">
                                     <label className = "form-label"> Planting Seed Depth :</label>
                                     <input
@@ -163,6 +172,7 @@ const AddPlantComponent = () => {
                                     >
                                     </input>
                                 </div>
+
                                 <div className = "form-group mb-2">
                                     <label className = "form-label"> Planting Soil Temperature :</label>
                                     <input
